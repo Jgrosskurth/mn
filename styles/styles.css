@@ -428,13 +428,24 @@ header nav .nav-links a:hover {
   text-decoration: none;
 }
 
-@media (width <= 600px) {
+@media (width <= 900px) {
   header nav .nav-links {
-    gap: 1rem;
+    gap: 1.2rem;
   }
 
   header nav .nav-links a {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+  }
+}
+
+@media (width <= 600px) {
+  header nav .nav-links {
+    gap: 0.8rem;
+  }
+
+  header nav .nav-links a {
+    font-size: 0.65rem;
     letter-spacing: 0;
   }
 }

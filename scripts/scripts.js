@@ -401,7 +401,7 @@ function buildFallbackNav(header) {
   header.style.height = 'var(--nav-height)';
   header.style.display = 'flex';
   header.style.alignItems = 'center';
-  header.style.padding = '0 2rem';
+  header.style.padding = '0 1rem';
 }
 
 async function loadLazy(doc) {
