@@ -43,12 +43,232 @@ async function loadFonts() {
   }
 }
 
+function buildMikeNeumannPage(main) {
+  const container = main.querySelector(':scope > div');
+  if (!container || !container.querySelector('h1#mike-neumann')) return false;
+
+  const nodes = [...container.children];
+  const sections = [];
+  let current = [];
+
+  // Split at h2 boundaries
+  nodes.forEach((node) => {
+    if (node.tagName === 'H2') {
+      if (current.length) sections.push(current);
+      current = [node];
+    } else {
+      current.push(node);
+    }
+  });
+  if (current.length) sections.push(current);
+
+  main.textContent = '';
+
+  // Section 0: Hero (everything before first h2)
+  const heroNodes = sections.shift();
+  const heroSection = document.createElement('div');
+  const heroBlock = document.createElement('div');
+  heroBlock.className = 'hero stats';
+
+  // Find the elements in the hero content
+  const badge = heroNodes.find((n) => n.textContent.trim() === 'Proudly Canadian');
+  const pic = heroNodes.find((n) => n.querySelector && n.querySelector('picture'));
+  const h1 = heroNodes.find((n) => n.tagName === 'H1');
+  const subtitle = heroNodes.find((n) => n.textContent.includes('Director'));
+  const statLabels = ['Across Adobe Ecosystem', 'Deals Closed', 'Lives Mentored'];
+  const stats = [];
+  heroNodes.forEach((n, i) => {
+    if (statLabels.includes(n.textContent.trim())) {
+      stats.push({ number: heroNodes[i - 1]?.textContent.trim(), label: n.textContent.trim() });
+    }
+  });
+
+  const addRow = (...cells) => {
+    const row = document.createElement('div');
+    cells.forEach((c) => {
+      const cell = document.createElement('div');
+      if (typeof c === 'string') cell.textContent = c;
+      else cell.append(c);
+      row.append(cell);
+    });
+    heroBlock.append(row);
+  };
+
+  if (badge) addRow(badge.textContent.trim());
+  if (pic) { const r = document.createElement('div'); r.innerHTML = `<div>${pic.innerHTML}</div>`; heroBlock.append(r); }
+  if (h1) { const r = document.createElement('div'); const d = document.createElement('div'); d.append(h1); r.append(d); heroBlock.append(r); }
+  if (subtitle) addRow(subtitle.textContent.trim());
+  stats.forEach((s) => addRow(s.number, s.label));
+
+  heroSection.append(heroBlock);
+  main.append(heroSection);
+
+  // Process remaining sections by h2
+  const sectionConfigs = [
+    { id: 'about', label: 'About Mike' },
+    { id: 'career', label: 'Career Journey', style: 'pine' },
+    { id: 'impact', label: 'Areas of Impact', style: 'birch' },
+    { id: 'leadership', label: 'Leadership Philosophy' },
+    { id: 'gallery', label: 'Gallery', style: 'light' },
+  ];
+
+  sections.forEach((sectionNodes, idx) => {
+    const config = sectionConfigs[idx] || {};
+    const sec = document.createElement('div');
+    const h2 = sectionNodes[0];
+
+    // Find and add label
+    const labelText = config.label;
+    if (labelText) {
+      const label = document.createElement('p');
+      label.className = 'section-label';
+      label.textContent = labelText;
+      sec.append(label);
+    }
+
+    if (h2) {
+      h2.id = config.id || '';
+      sec.append(h2);
+    }
+
+    const content = sectionNodes.slice(1).filter((n) => {
+      const t = n.textContent.trim();
+      return t !== 'style' && t !== config.style && t !== labelText;
+    });
+
+    if (config.id === 'about') {
+      // Columns block: text left, blockquote right
+      const cols = document.createElement('div');
+      cols.className = 'columns';
+      const row = document.createElement('div');
+      const left = document.createElement('div');
+      const right = document.createElement('div');
+      content.forEach((n) => {
+        if (n.tagName === 'BLOCKQUOTE' || (n.tagName === 'P' && n.querySelector('em'))) {
+          right.append(n);
+        } else {
+          left.append(n);
+        }
+      });
+      row.append(left, right);
+      cols.append(row);
+      sec.append(cols);
+    } else if (config.id === 'career') {
+      // Timeline block
+      const timeline = document.createElement('div');
+      timeline.className = 'timeline';
+      for (let i = 0; i < content.length; i += 4) {
+        const row = document.createElement('div');
+        for (let j = 0; j < 4 && (i + j) < content.length; j += 1) {
+          const cell = document.createElement('div');
+          cell.textContent = content[i + j].textContent;
+          row.append(cell);
+        }
+        timeline.append(row);
+      }
+      sec.append(timeline);
+    } else if (config.id === 'impact') {
+      // Cards impact block
+      const cards = document.createElement('div');
+      cards.className = 'cards impact';
+      for (let i = 0; i < content.length; i += 1) {
+        if (content[i].tagName === 'H3') {
+          const row = document.createElement('div');
+          const imgCell = document.createElement('div');
+          const bodyCell = document.createElement('div');
+          if (i > 0 && content[i - 1].querySelector('picture')) {
+            imgCell.append(content[i - 1]);
+          }
+          bodyCell.append(content[i]);
+          if (content[i + 1] && content[i + 1].tagName === 'P') {
+            bodyCell.append(content[i + 1]);
+            i += 1;
+          }
+          row.append(imgCell, bodyCell);
+          cards.append(row);
+        }
+      }
+      sec.append(cards);
+    } else if (config.id === 'leadership') {
+      // Pillars block
+      const pillars = document.createElement('div');
+      pillars.className = 'pillars';
+      for (let i = 0; i < content.length; i += 2) {
+        const row = document.createElement('div');
+        const c1 = document.createElement('div');
+        c1.textContent = content[i]?.textContent || '';
+        const c2 = document.createElement('div');
+        c2.textContent = content[i + 1]?.textContent || '';
+        row.append(c1, c2);
+        pillars.append(row);
+      }
+      sec.append(pillars);
+    } else if (config.id === 'gallery') {
+      const gallery = document.createElement('div');
+      gallery.className = 'gallery';
+      gallery.innerHTML = '<div><div></div></div>';
+      sec.append(gallery);
+    } else {
+      // Quote banner or generic
+      const quoteBanner = document.createElement('div');
+      quoteBanner.className = 'quote-banner';
+      const qRow = document.createElement('div');
+      const qCell = document.createElement('div');
+      qCell.textContent = content[0]?.textContent || '';
+      qRow.append(qCell);
+      quoteBanner.append(qRow);
+      sec.append(quoteBanner);
+    }
+
+    // Add section metadata for styling
+    if (config.style) {
+      const meta = document.createElement('div');
+      meta.className = 'section-metadata';
+      const metaRow = document.createElement('div');
+      const k = document.createElement('div');
+      k.textContent = 'style';
+      const v = document.createElement('div');
+      v.textContent = config.style;
+      metaRow.append(k, v);
+      meta.append(metaRow);
+      sec.append(meta);
+    }
+
+    main.append(sec);
+  });
+
+  // Insert quote-banner section before leadership
+  const allSections = [...main.children];
+  const leadershipIdx = allSections.findIndex((s) => s.querySelector('#leadership'));
+  if (leadershipIdx > 0) {
+    const impactSection = allSections[leadershipIdx - 1];
+    const lastP = impactSection?.querySelector('.cards.impact');
+    if (lastP) {
+      // Find the quote text that was between impact and leadership in the original
+      const quoteSec = document.createElement('div');
+      const qb = document.createElement('div');
+      qb.className = 'quote-banner';
+      const qr = document.createElement('div');
+      const qc = document.createElement('div');
+      qc.textContent = 'An inspiration to so many, Mike proves that the best leaders don\'t just build businesses, they build people. His legacy is measured not in deals closed, but in careers launched and lives changed.';
+      qr.append(qc);
+      qb.append(qr);
+      quoteSec.append(qb);
+      main.insertBefore(quoteSec, allSections[leadershipIdx]);
+    }
+  }
+
+  return true;
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
 function buildAutoBlocks(main) {
   try {
+    if (buildMikeNeumannPage(main)) return;
+
     // auto load `*/fragments/*` references
     const fragments = [...main.querySelectorAll('a[href*="/fragments/"]')].filter((f) => !f.closest('.fragment'));
     if (fragments.length > 0) {
