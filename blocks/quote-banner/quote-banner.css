@@ -1,0 +1,48 @@
+.quote-banner-container .quote-banner-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.quote-banner {
+  background: linear-gradient(135deg, var(--maple-red), var(--maple-dark));
+  padding: 5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.quote-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L32.5 12.5 L40 15 L32.5 17.5 L30 25 L27.5 17.5 L20 15 L27.5 12.5Z' fill='rgba(255,255,255,0.03)' /%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.quote-banner blockquote,
+.quote-banner > div > div {
+  font-family: var(--heading-font-family);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-style: italic;
+  color: white;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.quote-banner .quote-mark {
+  font-size: 5rem;
+  color: rgb(255 255 255 / 20%);
+  line-height: 0.5;
+  display: block;
+  margin-bottom: 1rem;
+  font-style: normal;
+}
+
+.quote-banner p {
+  color: white;
+  position: relative;
+  z-index: 1;
+}

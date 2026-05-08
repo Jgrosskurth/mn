@@ -12,21 +12,33 @@
 
 :root {
   /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  --maple-red: #D52B1E;
+  --maple-dark: #A81E14;
+  --snow: #FAF8F5;
+  --pine: #1B3A2D;
+  --pine-light: #2A5A44;
+  --bark: #3E2723;
+  --birch: #F5F0E8;
+  --frost: #E8EDF2;
+  --granite: #6B7280;
+  --lake: #2C5F7C;
+  --gold: #C8913A;
+  --charcoal: #1E1E1E;
+  --background-color: var(--snow);
+  --light-color: var(--birch);
+  --dark-color: var(--granite);
+  --text-color: var(--charcoal);
+  --link-color: var(--maple-red);
+  --link-hover-color: var(--maple-dark);
 
   /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  --body-font-family: 'Source Sans 3', source-sans-fallback, sans-serif;
+  --heading-font-family: 'Playfair Display', playfair-fallback, serif;
 
   /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  --body-font-size-m: 18px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 14px;
 
   /* heading sizes */
   --heading-font-size-xxl: 55px;
@@ -42,31 +54,25 @@
 
 /* fallback fonts */
 @font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
+  font-family: source-sans-fallback;
+  size-adjust: 100%;
   src: local('Arial');
 }
 
 @font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
+  font-family: playfair-fallback;
+  size-adjust: 112%;
+  src: local('Georgia');
 }
 
 @media (width >= 900px) {
   :root {
-    /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
-
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
+    --heading-font-size-xxl: 60px;
+    --heading-font-size-xl: 44px;
+    --heading-font-size-l: 34px;
+    --heading-font-size-m: 27px;
+    --heading-font-size-s: 24px;
+    --heading-font-size-xs: 22px;
   }
 }
 
@@ -107,9 +113,10 @@ h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 700;
+  line-height: 1.2;
   scroll-margin: 40px;
+  color: var(--pine);
 }
 
 h1 { font-size: var(--heading-font-size-xxl); }
@@ -199,18 +206,18 @@ button.button:disabled {
 
 a.button.primary,
 button.button.primary {
-  border-color: var(--text-color);
-  background-color: var(--text-color);
-  color: var(--background-color);
+  border-color: var(--maple-red);
+  background-color: var(--maple-red);
+  color: white;
 }
 
 a.button.primary:hover,
 a.button.primary:focus-visible,
 button.button.primary:hover,
 button.button.primary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--dark-color);
-  color: var(--light-color);
+  border-color: var(--maple-dark);
+  background-color: var(--maple-dark);
+  color: white;
 }
 
 a.button.primary[aria-disabled="true"],
@@ -226,18 +233,18 @@ button.button.primary:disabled:focus-visible {
 
 a.button.secondary,
 button.button.secondary {
-  border-color: var(--text-color);
+  border-color: var(--pine);
   background-color: transparent;
-  color: var(--text-color);
+  color: var(--pine);
 }
 
 a.button.secondary:hover,
 a.button.secondary:focus-visible,
 button.button.secondary:hover,
 button.button.secondary:focus-visible {
-  border-color: var(--dark-color);
+  border-color: var(--pine-light);
   background-color: var(--light-color);
-  color: var(--dark-color);
+  color: var(--pine-light);
 }
 
 a.button.secondary[aria-disabled="true"],
@@ -254,17 +261,17 @@ button.button.secondary:disabled:focus-visible {
 /* high-impact call-to-action */
 a.button.accent,
 button.button.accent {
-  border-color: var(--link-color);
-  background-color: var(--link-color);
-  color: var(--background-color);
+  border-color: var(--maple-red);
+  background-color: var(--maple-red);
+  color: white;
 }
 
 a.button.accent:hover,
 a.button.accent:focus-visible,
 button.button.accent:hover,
 button.button.accent:focus-visible {
-  border-color: var(--link-hover-color);
-  background-color: var(--link-hover-color);
+  border-color: var(--maple-dark);
+  background-color: var(--maple-dark);
 }
 
 a.button.accent[aria-disabled="true"],
@@ -297,17 +304,19 @@ main img {
 
 /* sections */
 main > .section {
-  margin: 40px 0;
+  margin: 0;
+  padding: 80px 0;
 }
 
 main > .section > div {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: auto;
   padding: 0 24px;
 }
 
 main > .section:first-of-type {
   margin-top: 0;
+  padding: 0;
 }
 
 @media (width >= 900px) {
@@ -316,10 +325,72 @@ main > .section:first-of-type {
   }
 }
 
-/* section metadata */
+/* section metadata styles */
 main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
-  margin: 0;
-  padding: 40px 0;
+}
+
+main .section.dark {
+  background: linear-gradient(165deg, var(--pine) 0%, #0F2219 50%, var(--charcoal) 100%);
+  color: white;
+  padding: 80px 0;
+}
+
+main .section.dark h1,
+main .section.dark h2,
+main .section.dark h3,
+main .section.dark h4,
+main .section.dark h5,
+main .section.dark h6 {
+  color: white;
+}
+
+main .section.dark p {
+  color: rgb(255 255 255 / 75%);
+}
+
+main .section.pine {
+  background-color: var(--pine);
+  color: white;
+  padding: 80px 0;
+}
+
+main .section.pine h1,
+main .section.pine h2,
+main .section.pine h3 {
+  color: white;
+}
+
+main .section.birch {
+  background-color: var(--birch);
+}
+
+/* section labels */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--maple-red);
+  margin-bottom: 1rem;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--maple-red);
+}
+
+main .section.pine .section-label {
+  color: var(--gold);
+}
+
+main .section.pine .section-label::before {
+  background: var(--gold);
 }

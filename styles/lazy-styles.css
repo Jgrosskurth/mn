@@ -1,1 +1,49 @@
-/* add global styles that can be loaded post LCP here */
+/* About section photo */
+main .section .columns picture img {
+  border-radius: 12px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* About section blockquote card */
+main .section .columns blockquote {
+  font-family: var(--heading-font-family);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--pine);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  padding: 2.5rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgb(0 0 0 / 6%);
+  border: 1px solid rgb(27 58 45 / 8%);
+  position: relative;
+  overflow: hidden;
+}
+
+main .section .columns blockquote::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--maple-red), var(--gold));
+}
+
+/* Intersection observer animations */
+.timeline > div.animate,
+.cards.impact > ul > li.animate,
+.pillars > div > div.animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.timeline > div.animate.visible,
+.cards.impact > ul > li.animate.visible,
+.pillars > div > div.animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,0 +1,61 @@
+.pillars {
+  margin-top: 2rem;
+}
+
+.pillars > div {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.pillars > div > div {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid rgb(0 0 0 / 4%);
+  box-shadow: 0 2px 12px rgb(0 0 0 / 3%);
+  transition: transform 0.3s;
+}
+
+.pillars > div > div:hover {
+  transform: translateY(-4px);
+}
+
+.pillars .pillar-number {
+  font-family: var(--heading-font-family);
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--maple-red);
+  opacity: 0.2;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.pillars h3 {
+  font-family: var(--heading-font-family);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--pine);
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+}
+
+.pillars p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--granite);
+  margin: 0;
+}
+
+@media (width <= 900px) {
+  .pillars > div {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width <= 600px) {
+  .pillars > div {
+    grid-template-columns: 1fr;
+  }
+}

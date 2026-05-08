@@ -1,0 +1,83 @@
+.timeline-container .timeline-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 3rem;
+  margin-top: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--maple-red), var(--gold), transparent);
+}
+
+.timeline > div {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgb(255 255 255 / 6%);
+}
+
+.timeline > div:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.timeline > div::before {
+  content: '';
+  position: absolute;
+  left: -2.75rem;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--maple-red);
+  border: 3px solid var(--pine);
+  box-shadow: 0 0 0 3px rgb(213 43 30 / 30%);
+}
+
+.timeline .timeline-era {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.timeline .timeline-role {
+  font-family: var(--heading-font-family);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.3rem;
+}
+
+.timeline .timeline-company {
+  font-size: 0.95rem;
+  color: rgb(255 255 255 / 60%);
+  margin-bottom: 0.75rem;
+}
+
+.timeline .timeline-desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgb(255 255 255 / 75%);
+  max-width: 700px;
+}
+
+@media (width >= 900px) {
+  .timeline-container .timeline-wrapper {
+    padding: 0 32px;
+  }
+}

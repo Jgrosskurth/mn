@@ -25,3 +25,90 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+/* Impact variant */
+.cards.impact > ul {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.cards.impact > ul > li {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgb(0 0 0 / 4%);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 4%);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.cards.impact > ul > li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 8%);
+}
+
+.cards.impact .cards-card-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  background: rgb(213 43 30 / 10%);
+}
+
+.cards.impact .cards-card-image .icon {
+  width: 24px;
+  height: 24px;
+  color: var(--maple-red);
+}
+
+.cards.impact .cards-card-image .icon img {
+  filter: none;
+}
+
+.cards.impact > ul > li:nth-child(2) .cards-card-image {
+  background: rgb(27 58 45 / 10%);
+}
+
+.cards.impact > ul > li:nth-child(2) .cards-card-image .icon {
+  color: var(--pine);
+}
+
+.cards.impact > ul > li:nth-child(3) .cards-card-image {
+  background: rgb(44 95 124 / 10%);
+}
+
+.cards.impact > ul > li:nth-child(3) .cards-card-image .icon {
+  color: var(--lake);
+}
+
+.cards.impact > ul > li:nth-child(4) .cards-card-image {
+  background: rgb(200 145 58 / 10%);
+}
+
+.cards.impact > ul > li:nth-child(4) .cards-card-image .icon {
+  color: var(--gold);
+}
+
+.cards.impact .cards-card-body {
+  margin: 0;
+}
+
+.cards.impact .cards-card-body h3 {
+  font-family: var(--heading-font-family);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--pine);
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.cards.impact .cards-card-body p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--granite);
+  margin: 0;
+}
