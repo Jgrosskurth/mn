@@ -379,7 +379,6 @@ function buildFallbackNav(header) {
   const nav = document.createElement('nav');
   nav.innerHTML = `
     <div class="nav-wrapper">
-      <div class="nav-brand"><a href="/mike-neumann">Mike Neumann</a></div>
       <ul class="nav-links">
         <li><a href="#mike-neumann">Top</a></li>
         <li><a href="#impact">Impact</a></li>
