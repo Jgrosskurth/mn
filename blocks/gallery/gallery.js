@@ -135,9 +135,6 @@ function buildCarousel(entries) {
 export default async function decorate(block) {
   block.textContent = '';
 
-  const uploadForm = buildUploadForm();
-  block.append(uploadForm);
-
   // Load existing gallery entries
   let entries = [];
   try {
@@ -147,8 +144,13 @@ export default async function decorate(block) {
     // fail silently
   }
 
+  // Carousel first, then upload form
   const carousel = buildCarousel(entries);
   block.append(carousel);
+
+  const uploadForm = buildUploadForm();
+  uploadForm.id = 'upload';
+  block.append(uploadForm);
 
   // Handle form submission
   const form = uploadForm.querySelector('form');

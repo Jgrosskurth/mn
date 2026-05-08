@@ -374,8 +374,44 @@ async function loadEager(doc) {
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
+function buildFallbackNav(header) {
+  if (!document.querySelector('h1#mike-neumann')) return;
+  const nav = document.createElement('nav');
+  nav.innerHTML = `
+    <div class="nav-wrapper">
+      <div class="nav-brand"><a href="/mike-neumann">Mike Neumann</a></div>
+      <ul class="nav-links">
+        <li><a href="#mike-neumann">Top</a></li>
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#leadership">Leadership</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#upload">Upload</a></li>
+      </ul>
+    </div>
+  `;
+  header.append(nav);
+  header.style.position = 'fixed';
+  header.style.top = '0';
+  header.style.left = '0';
+  header.style.right = '0';
+  header.style.zIndex = '100';
+  header.style.background = 'rgb(27 58 45 / 95%)';
+  header.style.backdropFilter = 'blur(12px)';
+  header.style.height = 'var(--nav-height)';
+  header.style.display = 'flex';
+  header.style.alignItems = 'center';
+  header.style.padding = '0 2rem';
+}
+
 async function loadLazy(doc) {
   loadHeader(doc.querySelector('header'));
+  // Fallback nav if header block fails to load
+  setTimeout(() => {
+    const header = doc.querySelector('header');
+    if (!header.querySelector('.header[data-block-status="loaded"]')) {
+      buildFallbackNav(header);
+    }
+  }, 2000);
 
   const main = doc.querySelector('main');
   await loadSections(main);

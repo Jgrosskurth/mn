@@ -394,3 +394,55 @@ main .section.pine .section-label {
 main .section.pine .section-label::before {
   background: var(--gold);
 }
+
+/* Fallback nav */
+header nav .nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+header nav .nav-brand a {
+  font-family: var(--heading-font-family);
+  font-size: 1.1rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+header nav .nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav .nav-links a {
+  color: rgb(255 255 255 / 70%);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+header nav .nav-links a:hover {
+  color: var(--maple-red);
+  text-decoration: none;
+}
+
+@media (width <= 600px) {
+  header nav .nav-links {
+    gap: 1rem;
+  }
+
+  header nav .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0;
+  }
+}
