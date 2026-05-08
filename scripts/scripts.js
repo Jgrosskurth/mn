@@ -404,14 +404,12 @@ function buildFallbackNav(header) {
 }
 
 async function loadLazy(doc) {
-  loadHeader(doc.querySelector('header'));
-  // Fallback nav if header block fails to load
-  setTimeout(() => {
-    const header = doc.querySelector('header');
-    if (!header.querySelector('.header[data-block-status="loaded"]')) {
-      buildFallbackNav(header);
-    }
-  }, 2000);
+  const header = doc.querySelector('header');
+  if (document.querySelector('h1#mike-neumann')) {
+    buildFallbackNav(header);
+  } else {
+    loadHeader(header);
+  }
 
   const main = doc.querySelector('main');
   await loadSections(main);
