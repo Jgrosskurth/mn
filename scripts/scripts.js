@@ -112,6 +112,8 @@ function buildMikeNeumannPage(main) {
     { id: 'gallery', label: 'Gallery', style: 'light' },
   ];
 
+  const allLabels = sectionConfigs.map((c) => c.label);
+
   sections.forEach((sectionNodes, idx) => {
     const config = sectionConfigs[idx] || {};
     const sec = document.createElement('div');
@@ -133,7 +135,7 @@ function buildMikeNeumannPage(main) {
 
     const content = sectionNodes.slice(1).filter((n) => {
       const t = n.textContent.trim();
-      return t !== 'style' && t !== config.style && t !== labelText;
+      return t !== 'style' && t !== config.style && !allLabels.includes(t);
     });
 
     if (config.id === 'about') {
