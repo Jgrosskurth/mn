@@ -1,0 +1,225 @@
+.gallery-container .gallery-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.gallery .gallery-upload {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 6%);
+  border: 1px solid rgb(0 0 0 / 6%);
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gallery .gallery-upload h3 {
+  font-family: var(--heading-font-family);
+  font-size: 1.4rem;
+  color: var(--pine);
+  margin: 0 0 0.5rem;
+}
+
+.gallery .gallery-upload p {
+  font-size: 0.95rem;
+  color: var(--granite);
+  margin: 0 0 1.5rem;
+}
+
+.gallery .gallery-upload form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.gallery .gallery-upload label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--pine);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.gallery .gallery-upload input[type="text"],
+.gallery .gallery-upload textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgb(0 0 0 / 12%);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: var(--body-font-family);
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.gallery .gallery-upload input[type="text"]:focus,
+.gallery .gallery-upload textarea:focus {
+  outline: none;
+  border-color: var(--maple-red);
+}
+
+.gallery .gallery-upload .file-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.gallery .gallery-upload input[type="file"] {
+  font-size: 0.9rem;
+}
+
+.gallery .gallery-upload button[type="submit"] {
+  align-self: flex-start;
+  padding: 0.75rem 2rem;
+  background: var(--maple-red);
+  color: white;
+  border: none;
+  border-radius: 2.4em;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.gallery .gallery-upload button[type="submit"]:hover {
+  background: var(--maple-dark);
+}
+
+.gallery .gallery-upload button[type="submit"]:disabled {
+  background: var(--granite);
+  cursor: not-allowed;
+}
+
+.gallery .gallery-upload .gallery-status {
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  display: none;
+}
+
+.gallery .gallery-upload .gallery-status.success {
+  display: block;
+  background: rgb(27 58 45 / 10%);
+  color: var(--pine);
+}
+
+.gallery .gallery-upload .gallery-status.error {
+  display: block;
+  background: rgb(213 43 30 / 10%);
+  color: var(--maple-red);
+}
+
+/* Gallery carousel */
+.gallery .gallery-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery .gallery-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 1rem 0 2rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.gallery .gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery .gallery-card {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 6%);
+  border: 1px solid rgb(0 0 0 / 4%);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gallery .gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 10%);
+}
+
+.gallery .gallery-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.gallery .gallery-card-body {
+  padding: 1.25rem;
+}
+
+.gallery .gallery-card-body .gallery-card-name {
+  font-family: var(--heading-font-family);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pine);
+  margin: 0 0 0.5rem;
+}
+
+.gallery .gallery-card-body .gallery-card-comment {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--granite);
+  margin: 0;
+  font-style: italic;
+}
+
+.gallery .gallery-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.gallery .gallery-nav button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgb(0 0 0 / 10%);
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.gallery .gallery-nav button:hover {
+  background: var(--birch);
+  border-color: var(--maple-red);
+}
+
+.gallery .gallery-nav button svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--pine);
+}
+
+.gallery .gallery-empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--granite);
+  font-style: italic;
+}
+
+@media (width <= 600px) {
+  .gallery .gallery-card {
+    flex: 0 0 260px;
+  }
+
+  .gallery .gallery-upload {
+    padding: 1.5rem;
+  }
+}
