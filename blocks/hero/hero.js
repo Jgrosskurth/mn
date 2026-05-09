@@ -37,6 +37,8 @@ export default function decorate(block) {
   if (photoRow) {
     const pic = photoRow.querySelector('picture') || photoRow.querySelector('img');
     if (pic) {
+      const img = pic.querySelector('img') || pic;
+      img.setAttribute('loading', 'eager');
       const photoWrapper = document.createElement('div');
       photoWrapper.className = 'hero-photo';
       photoWrapper.append(pic);
