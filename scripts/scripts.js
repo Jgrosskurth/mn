@@ -71,7 +71,7 @@ function buildMikeNeumannPage(main) {
   heroBlock.className = 'hero stats';
 
   // Find the elements in the hero content
-  const badge = heroNodes.find((n) => n.textContent.trim() === 'Proudly Canadian');
+  const badge = heroNodes.find((n) => n.textContent.trim() === 'Made in Canada');
   const pic = heroNodes.find((n) => n.querySelector && n.querySelector('picture'));
   const h1 = heroNodes.find((n) => n.tagName === 'H1');
   const subtitle = heroNodes.find((n) => n.textContent.includes('Director'));
