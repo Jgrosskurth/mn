@@ -400,14 +400,13 @@ header nav .nav-wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
 }
 
 header nav .nav-links {
   display: flex;
-  gap: 2.5rem;
+  gap: 2rem;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -426,6 +425,21 @@ header nav .nav-links a {
 header nav .nav-links a:hover {
   color: var(--maple-red);
   text-decoration: none;
+}
+
+header nav .nav-links li:last-child a {
+  background: white;
+  color: var(--pine);
+  padding: 0.4rem 1.2rem;
+  border-radius: 2em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background 0.2s, color 0.2s;
+}
+
+header nav .nav-links li:last-child a:hover {
+  background: var(--maple-red);
+  color: white;
 }
 
 @media (width <= 900px) {
