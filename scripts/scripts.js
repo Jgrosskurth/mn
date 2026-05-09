@@ -76,10 +76,13 @@ function buildMikeNeumannPage(main) {
   const h1 = heroNodes.find((n) => n.tagName === 'H1');
   const subtitle = heroNodes.find((n) => n.textContent.includes('Director'));
   const statLabels = ['Across Adobe Ecosystem', 'Deals Closed', 'Lives Mentored'];
+  const statLabelMap = { 'Across Adobe Ecosystem': 'Years Across Adobe Ecosystem' };
   const stats = [];
   heroNodes.forEach((n, i) => {
     if (statLabels.includes(n.textContent.trim())) {
-      stats.push({ number: heroNodes[i - 1]?.textContent.trim(), label: n.textContent.trim() });
+      const rawLabel = n.textContent.trim();
+      const label = statLabelMap[rawLabel] || rawLabel;
+      stats.push({ number: heroNodes[i - 1]?.textContent.trim(), label });
     }
   });
 
