@@ -71,7 +71,10 @@ function buildMikeNeumannPage(main) {
   heroBlock.className = 'hero stats';
 
   // Find the elements in the hero content
-  const badge = heroNodes.find((n) => n.textContent.trim() === 'Made in Canada');
+  const badgeNode = heroNodes.find((n) => {
+    const t = n.textContent.trim();
+    return t === 'Made in Canada' || t === 'Proudly Canadian';
+  });
   const pic = heroNodes.find((n) => n.querySelector && n.querySelector('picture'));
   const h1 = heroNodes.find((n) => n.tagName === 'H1');
   const subtitle = heroNodes.find((n) => n.textContent.includes('Director'));
@@ -97,7 +100,7 @@ function buildMikeNeumannPage(main) {
     heroBlock.append(row);
   };
 
-  if (badge) addRow(badge.textContent.trim());
+  if (badgeNode) addRow('Made in Canada');
   if (pic) { const r = document.createElement('div'); r.innerHTML = `<div>${pic.innerHTML}</div>`; heroBlock.append(r); }
   if (h1) { const r = document.createElement('div'); const d = document.createElement('div'); d.append(h1); r.append(d); heroBlock.append(r); }
   if (subtitle) addRow(subtitle.textContent.trim());
