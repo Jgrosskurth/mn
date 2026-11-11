@@ -392,7 +392,6 @@ function buildFallbackNav(header) {
         <li><a href="#impact">Impact</a></li>
         <li><a href="#leadership">Leadership</a></li>
         <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#upload">Upload</a></li>
       </ul>
     </div>
   `;

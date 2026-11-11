@@ -427,21 +427,6 @@ header nav .nav-links a:hover {
   text-decoration: none;
 }
 
-header nav .nav-links li:last-child a {
-  background: white;
-  color: var(--pine);
-  padding: 0.4rem 1.2rem;
-  border-radius: 2em;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  transition: background 0.2s, color 0.2s;
-}
-
-header nav .nav-links li:last-child a:hover {
-  background: var(--maple-red);
-  color: white;
-}
-
 @media (width <= 900px) {
   header nav .nav-links {
     gap: 1.2rem;
