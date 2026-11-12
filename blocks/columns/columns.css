@@ -31,3 +31,84 @@
     order: unset;
   }
 }
+
+/* ── variant: quote (About band on snow) ── */
+main > .section.columns-container:has(.columns.quote-card) {
+  background: var(--snow);
+}
+
+.columns.quote-card > div {
+  display: grid;
+  gap: 2rem;
+}
+
+.columns.quote-card > div > div:not(.columns-quote-col) {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.columns.quote-card p {
+  max-width: 68ch;
+}
+
+.columns.quote-card .columns-quote-col {
+  position: relative;
+  align-self: start;
+  padding: 2.5rem 2rem 2rem;
+  overflow: hidden;
+  border: 1px solid rgb(27 58 45 / 8%);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-quote);
+}
+
+.columns.quote-card .columns-quote-col::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--gradient-rule);
+}
+
+.columns.quote-card .columns-quote-col blockquote {
+  margin: 0 0 1rem;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-md);
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--pine);
+}
+
+.columns.quote-card .columns-quote-cite {
+  margin: 0;
+  font-size: var(--body-sm);
+  font-style: italic;
+  color: var(--granite);
+}
+
+@media (width >= 900px) {
+  .columns.quote-card > div {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+}
+
+/* ── entrance motion (fade + rise; armed only by columns.js, below the fold) ── */
+.columns-container [data-enter='armed'] {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.columns-container [data-enter='in'] {
+  transition: opacity var(--dur-enter) var(--ease-entrance), transform var(--dur-enter) var(--ease-entrance);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .columns-container [data-enter] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

@@ -10,69 +10,129 @@
  * governing permissions and limitations under the License.
  */
 
+/*
+ * Foundation for the Mike Neumann tribute page (stardust deploy of
+ * stardust/prototypes/mike-neumann-A-cinematic.html). Tokens are lifted
+ * verbatim from the prototype :root; every section paints its own ground
+ * from its block CSS. No motion primitives live here: each cinematic move
+ * is owned by the block it animates.
+ */
+
 :root {
-  /* colors */
-  --maple-red: #D52B1E;
-  --maple-dark: #A81E14;
-  --snow: #FAF8F5;
-  --pine: #1B3A2D;
-  --pine-light: #2A5A44;
-  --bark: #3E2723;
-  --birch: #F5F0E8;
-  --frost: #E8EDF2;
-  --granite: #6B7280;
-  --lake: #2C5F7C;
-  --gold: #C8913A;
-  --charcoal: #1E1E1E;
-  --background-color: var(--snow);
-  --light-color: var(--birch);
-  --dark-color: var(--granite);
-  --text-color: var(--charcoal);
+  /* color: brand-native roles */
+  --color-bg: #faf8f5;
+  --color-fg: #1e1e1e;
+  --color-accent: #d52b1e;
+  --color-brand: #1b3a2d;
+  --snow: #faf8f5;
+  --white: #fff;
+  --birch: #f5f0e8;
+  --pine: #1b3a2d;
+  --pine-deep: #0f2219;
+  --charcoal: #1e1e1e;
+  --maple-red: #d52b1e;
+  --maple-dark: #a81e14;
+  --granite: #6b7280;
+  --gold: #c8913a;
+  --lake: #2c5f7c;
+  --background-color: var(--color-bg);
+  --text-color: var(--color-fg);
   --link-color: var(--maple-red);
   --link-hover-color: var(--maple-dark);
 
-  /* fonts */
-  --body-font-family: 'Source Sans 3', source-sans-fallback, sans-serif;
-  --heading-font-family: 'Playfair Display', playfair-fallback, serif;
+  /* typography */
+  --heading-font-family: 'Playfair Display', playfair-display-fallback, georgia, serif;
+  --body-font-family: 'Source Sans 3', 'source-sans-3-fallback', arial, sans-serif;
+  --heading-xxl: clamp(3rem, 7.5vw, 6.5rem);
+  --heading-xl: clamp(2rem, 4vw, 2.75rem);
+  --heading-lg: 1.75rem;
+  --heading-md: 1.4rem;
+  --body: 1.125rem;
+  --body-sm: 1rem;
+  --line-height-heading: 1.2;
+  --line-height-body: 1.6;
 
-  /* body sizes */
-  --body-font-size-m: 18px;
-  --body-font-size-s: 16px;
-  --body-font-size-xs: 14px;
-
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
-
-  /* nav height */
+  /* spacing + layout */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --spacing-2xl: 64px;
+  --section-padding: 32px;
+  --max-width: 1100px;
+  --gutter: 24px;
+  --radius: 16px;
+  --radius-chip: 12px;
+  --radius-pill: 40px;
   --nav-height: 64px;
+
+  /* depth */
+  --shadow-card: 0 4px 20px rgb(0 0 0 / 6%);
+  --shadow-pillar: 0 2px 12px rgb(0 0 0 / 3%);
+  --shadow-quote: 0 8px 40px rgb(0 0 0 / 6%);
+  --shadow-hover: 0 12px 40px rgb(0 0 0 / 10%);
+  --gradient-hero: linear-gradient(165deg, #1b3a2d 0%, #0f2219 50%, #1e1e1e 100%);
+  --gradient-maple: linear-gradient(135deg, #d52b1e, #a81e14);
+  --gradient-rule: linear-gradient(90deg, #d52b1e, #c8913a);
+
+  /* motion tokens (arrival register) — consumed by block CSS only */
+  --dur-state: 180ms;
+  --ease-snap: cubic-bezier(0.2, 0, 0, 1);
+  --ease-entrance: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-transition: cubic-bezier(0.42, 0, 0, 1);
+  --dur-enter: 700ms;
+  --dur-stagger: 90ms;
 }
 
-/* fallback fonts */
+/* Metric-matched fallbacks (available at first paint; brand faces arrive via fonts.css).
+   Values computed from the shipped woff2 (hhea + frequency-weighted advance widths). */
 @font-face {
-  font-family: source-sans-fallback;
-  size-adjust: 100%;
+  font-family: playfair-display-fallback;
+  src: local('Times New Roman');
+  size-adjust: 112.62%;
+  ascent-override: 96.07%;
+  descent-override: 22.29%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'source-sans-3-fallback';
   src: local('Arial');
+  size-adjust: 90.24%;
+  ascent-override: 113.47%;
+  descent-override: 44.32%;
+  line-gap-override: 0%;
 }
 
-@font-face {
-  font-family: playfair-fallback;
-  size-adjust: 112%;
-  src: local('Georgia');
+@media (width >= 600px) {
+  :root {
+    --section-padding: 48px;
+  }
 }
 
 @media (width >= 900px) {
   :root {
-    --heading-font-size-xxl: 60px;
-    --heading-font-size-xl: 44px;
-    --heading-font-size-l: 34px;
-    --heading-font-size-m: 27px;
-    --heading-font-size-s: 24px;
-    --heading-font-size-xs: 22px;
+    --section-padding: 64px;
+    --gutter: 32px;
+  }
+}
+
+/* ── reset ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  text-size-adjust: 100%;
+  hanging-punctuation: first;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
@@ -82,16 +142,36 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-m);
-  line-height: 1.6;
+  font-size: var(--body);
+  line-height: var(--line-height-body);
+  -webkit-font-smoothing: antialiased;
 }
 
 body.appear {
   display: block;
 }
 
+::selection {
+  background: rgb(213 43 30 / 20%);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── chrome reservation (stock structural layer) ───────── */
+
+/* the header is fixed overlay chrome over the hero: the bare <header> paints the
+   pine bar at first paint, so the late header block load shifts nothing (#81/#108) */
 header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
   height: var(--nav-height);
+  background: rgb(27 58 45 / 95%);
+  backdrop-filter: blur(12px);
 }
 
 header .header,
@@ -99,32 +179,25 @@ footer .footer {
   visibility: hidden;
 }
 
-header .header[data-block-status="loaded"],
-footer .footer[data-block-status="loaded"] {
+header .header[data-block-status='loaded'],
+footer .footer[data-block-status='loaded'] {
   visibility: visible;
 }
 
+/* ── type ──────────────────────────────────────────────── */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin: 0;
   font-family: var(--heading-font-family);
   font-weight: 700;
-  line-height: 1.2;
-  scroll-margin: 40px;
+  line-height: var(--line-height-heading);
+  text-wrap: balance;
   color: var(--pine);
 }
-
-h1 { font-size: var(--heading-font-size-xxl); }
-h2 { font-size: var(--heading-font-size-xl); }
-h3 { font-size: var(--heading-font-size-l); }
-h4 { font-size: var(--heading-font-size-m); }
-h5 { font-size: var(--heading-font-size-s); }
-h6 { font-size: var(--heading-font-size-xs); }
 
 p,
 dl,
@@ -132,254 +205,150 @@ ol,
 ul,
 pre,
 blockquote {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin: 0;
 }
 
-code,
-pre {
-  font-size: var(--body-font-size-s);
+p {
+  text-wrap: pretty;
 }
 
-pre {
-  padding: 16px;
-  border-radius: 8px;
-  background-color: var(--light-color);
-  overflow-x: auto;
-  white-space: pre;
-}
-
-main > div {
-  margin: 40px 16px;
-}
-
-input,
-textarea,
-select,
-button {
-  font: inherit;
-}
-
-/* links */
 a:any-link {
   color: var(--link-color);
-  text-decoration: none;
-  overflow-wrap: break-word;
+  text-underline-offset: 3px;
 }
 
 a:hover {
   color: var(--link-hover-color);
-  text-decoration: underline;
 }
 
-/* buttons */
-p.button-wrapper {
-  margin: 12px 0;
+:focus-visible {
+  outline: 2px solid var(--pine);
+  outline-offset: 2px;
 }
 
+[id] {
+  scroll-margin-top: calc(var(--nav-height) + 16px);
+}
+
+code,
+pre {
+  font-size: var(--body-sm);
+}
+
+/* ── buttons (stock selectors, brand paint; no CTAs on this page today) ── */
 a.button:any-link,
 button.button {
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  margin: 0;
-  border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
-  font: inherit;
-  font-weight: 500;
-  line-height: 1.25;
-  text-decoration: none;
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-a.button[aria-disabled="true"],
-button.button:disabled {
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-a.button.primary,
-button.button.primary {
-  border-color: var(--maple-red);
-  background-color: var(--maple-red);
-  color: white;
-}
-
-a.button.primary:hover,
-a.button.primary:focus-visible,
-button.button.primary:hover,
-button.button.primary:focus-visible {
-  border-color: var(--maple-dark);
-  background-color: var(--maple-dark);
-  color: white;
-}
-
-a.button.primary[aria-disabled="true"],
-a.button.primary[aria-disabled="true"]:hover,
-a.button.primary[aria-disabled="true"]:focus-visible,
-button.button.primary:disabled,
-button.button.primary:disabled:hover,
-button.button.primary:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
-}
-
-a.button.secondary,
-button.button.secondary {
-  border-color: var(--pine);
-  background-color: transparent;
-  color: var(--pine);
-}
-
-a.button.secondary:hover,
-a.button.secondary:focus-visible,
-button.button.secondary:hover,
-button.button.secondary:focus-visible {
-  border-color: var(--pine-light);
-  background-color: var(--light-color);
-  color: var(--pine-light);
-}
-
-a.button.secondary[aria-disabled="true"],
-a.button.secondary[aria-disabled="true"]:hover,
-a.button.secondary[aria-disabled="true"]:focus-visible,
-button.button.secondary:disabled,
-button.button.secondary:disabled:hover,
-button.button.secondary:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
-}
-
-/* high-impact call-to-action */
-a.button.accent,
-button.button.accent {
-  border-color: var(--maple-red);
-  background-color: var(--maple-red);
-  color: white;
-}
-
-a.button.accent:hover,
-a.button.accent:focus-visible,
-button.button.accent:hover,
-button.button.accent:focus-visible {
-  border-color: var(--maple-dark);
-  background-color: var(--maple-dark);
-}
-
-a.button.accent[aria-disabled="true"],
-a.button.accent[aria-disabled="true"]:hover,
-a.button.accent[aria-disabled="true"]:focus-visible,
-button.button.accent:disabled,
-button.button.accent:disabled:hover,
-button.button.accent:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
-}
-
-main img {
-  max-width: 100%;
-  width: auto;
-  height: auto;
-}
-
-.icon {
-  display: inline-block;
-  height: 24px;
-  width: 24px;
-}
-
-.icon img {
-  height: 100%;
-  width: 100%;
-}
-
-/* sections */
-main > .section {
-  margin: 0;
-  padding: 80px 0;
-}
-
-main > .section > div {
-  max-width: 1100px;
-  margin: auto;
-  padding: 0 24px;
-}
-
-main > .section:first-of-type {
-  margin-top: 0;
-  padding: 0;
-}
-
-@media (width >= 900px) {
-  main > .section > div {
-    padding: 0 32px;
-  }
-}
-
-/* section metadata styles */
-main .section.light,
-main .section.highlight {
-  background-color: var(--light-color);
-}
-
-main .section.dark {
-  background: linear-gradient(165deg, var(--pine) 0%, #0F2219 50%, var(--charcoal) 100%);
-  color: white;
-  padding: 80px 0;
-}
-
-main .section.dark h1,
-main .section.dark h2,
-main .section.dark h3,
-main .section.dark h4,
-main .section.dark h5,
-main .section.dark h6 {
-  color: white;
-}
-
-main .section.dark p {
-  color: rgb(255 255 255 / 75%);
-}
-
-main .section.pine {
-  background-color: var(--pine);
-  color: white;
-  padding: 80px 0;
-}
-
-main .section.pine h1,
-main .section.pine h2,
-main .section.pine h3 {
-  color: white;
-}
-
-main .section.birch {
-  background-color: var(--birch);
-}
-
-/* section labels */
-.section-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.75rem;
+  padding: 12px 24px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--body-font-family);
+  font-size: var(--body-sm);
   font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--maple-red);
-  margin-bottom: 1rem;
+  line-height: 1.25;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--dur-state) var(--ease-snap), color var(--dur-state) var(--ease-snap);
 }
 
-.section-label::before {
+a.button.primary,
+a.button.accent {
+  background: var(--maple-red);
+  color: var(--white);
+}
+
+a.button.primary:hover,
+a.button.accent:hover {
+  background: var(--maple-dark);
+  color: var(--white);
+}
+
+a.button.secondary {
+  background: transparent;
+  border-color: currentcolor;
+  color: var(--pine);
+}
+
+p.button-wrapper {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Experience Workspace edit mode: repaint CTAs from their authored marks (EW3) */
+/* stylelint-disable no-descending-specificity -- order mirrors the stock edit-mode repaint */
+.prosemirror-editor p > :is(strong, em) > a:any-link,
+.prosemirror-editor p > a:any-link:has(> :is(strong, em):only-child) {
+  display: inline-flex;
+  padding: 12px 24px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: var(--body-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.prosemirror-editor p > a:any-link > :is(strong, em) {
+  font-weight: inherit;
+  font-style: inherit;
+}
+
+.prosemirror-editor p > strong > a:any-link,
+.prosemirror-editor p > a:any-link:has(> strong:only-child) {
+  background: var(--maple-red);
+  color: var(--white);
+}
+
+.prosemirror-editor p > em > a:any-link,
+.prosemirror-editor p > a:any-link:has(> em:only-child) {
+  border-color: currentcolor;
+  color: var(--pine);
+}
+
+a .prosemirror-editor a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+/* stylelint-enable no-descending-specificity */
+
+/* ── section scaffold ──────────────────────────────────── */
+main > .section {
+  position: relative;
+  padding: var(--section-padding) 0;
+}
+
+main > .section > div {
+  max-width: calc(var(--max-width) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* the metadata block leaves its section empty */
+main .section:empty {
+  display: none;
+}
+
+/* section head = default content (eyebrow + H2) above a block; styled in place */
+main > .section > .default-content-wrapper {
+  margin-bottom: 2rem;
+}
+
+main > .section > .default-content-wrapper p {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--pine);
+}
+
+main > .section > .default-content-wrapper p::before {
   content: '';
   display: block;
   width: 24px;
@@ -387,64 +356,10 @@ main .section.birch {
   background: var(--maple-red);
 }
 
-main .section.pine .section-label {
-  color: var(--gold);
-}
-
-main .section.pine .section-label::before {
-  background: var(--gold);
-}
-
-/* Fallback nav */
-header nav .nav-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-header nav .nav-links {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-header nav .nav-links a {
-  color: rgb(255 255 255 / 70%);
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: color 0.3s;
-}
-
-header nav .nav-links a:hover {
-  color: var(--maple-red);
-  text-decoration: none;
-}
-
-@media (width <= 900px) {
-  header nav .nav-links {
-    gap: 1.2rem;
-  }
-
-  header nav .nav-links a {
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
-  }
-}
-
-@media (width <= 600px) {
-  header nav .nav-links {
-    gap: 0.8rem;
-  }
-
-  header nav .nav-links a {
-    font-size: 0.65rem;
-    letter-spacing: 0;
-  }
+main > .section > .default-content-wrapper h2 {
+  max-width: 28ch;
+  font-size: var(--heading-xl);
+  font-weight: 700;
+  line-height: var(--line-height-heading);
+  color: var(--pine);
 }

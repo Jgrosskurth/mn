@@ -1,114 +1,221 @@
+/* cards — base (Block Collection shape) */
 .cards > ul {
-  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  list-style: none;
 }
 
-.cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+.cards .cards-card {
+  overflow: hidden;
+  border: 1px solid rgb(0 0 0 / 4%);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-card);
 }
 
 .cards .cards-card-body {
-  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 2rem;
+}
+
+.cards .cards-card-body :is(h2, h3, h4) {
+  font-size: var(--heading-md);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--pine);
+}
+
+.cards .cards-card-body p {
+  font-size: var(--body-sm);
+  line-height: 1.7;
+  color: var(--charcoal);
 }
 
 .cards .cards-card-image {
   line-height: 0;
 }
 
-.cards > ul > li img {
+.cards .cards-card-image img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
 
-/* Impact variant */
-.cards.impact > ul {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+@media (width >= 600px) {
+  .cards > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.cards.impact > ul > li {
-  background: white;
-  border-radius: 16px;
+/* ── variant: impact (birch band, icon chips, 2×2) ── */
+main > .section.cards-container:has(.cards.impact) {
+  background: var(--birch);
+}
+
+.cards.impact .cards-card {
   padding: 2rem;
-  border: 1px solid rgb(0 0 0 / 4%);
-  box-shadow: 0 4px 20px rgb(0 0 0 / 4%);
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-
-.cards.impact > ul > li:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgb(0 0 0 / 8%);
-}
-
-.cards.impact .cards-card-image {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.25rem;
-  background: rgb(213 43 30 / 10%);
-}
-
-.cards.impact .cards-card-image .icon {
-  width: 24px;
-  height: 24px;
-  color: var(--maple-red);
-}
-
-.cards.impact .cards-card-image .icon img {
-  filter: none;
-}
-
-.cards.impact > ul > li:nth-child(2) .cards-card-image {
-  background: rgb(27 58 45 / 10%);
-}
-
-.cards.impact > ul > li:nth-child(2) .cards-card-image .icon {
-  color: var(--pine);
-}
-
-.cards.impact > ul > li:nth-child(3) .cards-card-image {
-  background: rgb(44 95 124 / 10%);
-}
-
-.cards.impact > ul > li:nth-child(3) .cards-card-image .icon {
-  color: var(--lake);
-}
-
-.cards.impact > ul > li:nth-child(4) .cards-card-image {
-  background: rgb(200 145 58 / 10%);
-}
-
-.cards.impact > ul > li:nth-child(4) .cards-card-image .icon {
-  color: var(--gold);
 }
 
 .cards.impact .cards-card-body {
-  margin: 0;
+  padding: 0;
 }
 
-.cards.impact .cards-card-body h3 {
-  font-family: var(--heading-font-family);
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--pine);
-  margin-top: 0;
+.cards.impact .cards-card-image {
+  --chip-bg: rgb(213 43 30 / 10%);
+  --chip-fg: var(--maple-red);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1.25rem;
+  border-radius: var(--radius-chip);
+  background: var(--chip-bg);
+}
+
+.cards.impact .cards-card:nth-child(4n + 2) .cards-card-image {
+  --chip-bg: rgb(27 58 45 / 10%);
+  --chip-fg: var(--pine);
+}
+
+.cards.impact .cards-card:nth-child(4n + 3) .cards-card-image {
+  --chip-bg: rgb(44 95 124 / 10%);
+  --chip-fg: var(--lake);
+}
+
+.cards.impact .cards-card:nth-child(4n + 4) .cards-card-image {
+  --chip-bg: rgb(200 145 58 / 10%);
+  --chip-fg: var(--gold);
+}
+
+.cards.impact .cards-card-image :is(p, picture) {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.cards.impact .cards-card-image img {
+  width: 24px;
+  height: 24px;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+/* the chip paints the authored icon in its own colour (mask set by cards.js) */
+.cards.impact .cards-card-image[data-masked] {
+  position: relative;
+}
+
+.cards.impact .cards-card-image[data-masked]::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: var(--chip-fg);
+  mask: var(--icon) center / 24px 24px no-repeat;
+}
+
+.cards.impact .cards-card-image[data-masked] img {
+  opacity: 0;
+}
+
+/* ── variant: pillars (snow band, indexed tiles, 1 / 2 / 4 col) ── */
+main > .section.cards-container:has(.cards.pillars) {
+  background: var(--snow);
+}
+
+.cards.pillars > ul {
+  counter-reset: pillar;
+}
+
+.cards.pillars .cards-card {
+  counter-increment: pillar;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-pillar);
+}
+
+.cards.pillars .cards-card::before {
+  content: counter(pillar, decimal-leading-zero) / '';
+  display: block;
   margin-bottom: 0.75rem;
+  font-family: var(--heading-font-family);
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  color: rgb(213 43 30 / 22%);
 }
 
-.cards.impact .cards-card-body p {
+.cards.pillars .cards-card-body {
+  padding: 0;
+}
+
+.cards.pillars .cards-card-body :is(h2, h3, h4) {
+  font-size: 1.15rem;
+}
+
+.cards.pillars .cards-card-body p {
   font-size: 0.95rem;
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--granite);
-  margin: 0;
+}
+
+@media (width >= 900px) {
+  .cards.impact > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 1200px) {
+  .cards.pillars > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* captured hover lift — pointer devices, motion allowed; `translate` composes with
+   the entrance transform */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .cards .cards-card {
+    transition: translate 0.3s var(--ease-snap), box-shadow 0.3s var(--ease-snap);
+  }
+
+  .cards .cards-card:hover {
+    translate: 0 -4px;
+  }
+
+  .cards.impact .cards-card:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  .cards-container .cards-card[data-enter='in'] {
+    transition:
+      opacity var(--dur-enter) var(--ease-entrance),
+      transform var(--dur-enter) var(--ease-entrance),
+      translate 0.3s var(--ease-snap),
+      box-shadow 0.3s var(--ease-snap);
+  }
+}
+
+/* ── entrance motion (armed only by cards.js, below the fold) ── */
+.cards-container [data-enter='armed'] {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.cards-container [data-enter='in'] {
+  transition: opacity var(--dur-enter) var(--ease-entrance), transform var(--dur-enter) var(--ease-entrance);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-container [data-enter] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }

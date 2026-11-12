@@ -1,20 +1,90 @@
+/* footer — quiet pine sign-off band */
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background: var(--pine);
+  color: var(--white);
 }
 
 footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  padding: 56px var(--gutter);
+  text-align: center;
 }
 
-footer .footer p {
-  margin: 0;
+footer .footer-sign-off {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: calc(var(--max-width) + 2 * var(--gutter));
+  margin: 0 auto;
+}
+
+footer .footer-sign-off::before {
+  content: '';
+  width: 36px;
+  height: 36px;
+  margin-bottom: 0.25rem;
+  background: url('/icons/maple-leaf.png') center / contain no-repeat;
+}
+
+footer .footer-name {
+  font-family: var(--heading-font-family);
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+footer .footer-name em {
+  font-style: italic;
+  color: var(--white);
+}
+
+footer .footer-role p {
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-wrap: balance;
+  color: rgb(255 255 255 / 75%);
+}
+
+footer .footer-badge {
+  margin-top: 0.5rem;
+}
+
+footer .footer-badge p {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border: 1px solid rgb(213 43 30 / 30%);
+  border-radius: var(--radius-pill);
+  background: rgb(213 43 30 / 18%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 90%);
+}
+
+footer .footer-badge p::before {
+  content: '';
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background: url('/icons/maple-leaf.png') center / contain no-repeat;
+}
+
+footer a:any-link {
+  color: inherit;
 }
 
 @media (width >= 900px) {
   footer .footer > div {
-    padding: 40px 32px 24px;
+    padding: 72px var(--gutter);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  footer .footer-sign-off {
+    clip-path: none !important;
   }
 }
