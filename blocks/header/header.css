@@ -203,11 +203,23 @@ header nav .nav-sections li a:any-link::after {
     padding: 6px 0;
     border-bottom: 0;
     font-size: 0.95rem;
+    white-space: nowrap;
     color: rgb(255 255 255 / 70%);
   }
 
   header nav .nav-sections li a:any-link::after {
     display: block;
+  }
+}
+
+/* tablet: five links + brand must share one row */
+@media (width >= 600px) and (width < 900px) {
+  header nav .nav-sections ul {
+    gap: 1rem;
+  }
+
+  header nav .nav-sections li a:any-link {
+    font-size: 0.875rem;
   }
 }
 

@@ -356,6 +356,24 @@ main > .section > .default-content-wrapper p::before {
   background: var(--maple-red);
 }
 
+/* closing CTA = default content AFTER a block (e.g. "Share a photo" under the gallery) */
+main > .section > [class$='-wrapper'] + .default-content-wrapper {
+  margin: 2.5rem auto 0;
+  text-align: center;
+}
+
+main > .section > .default-content-wrapper p:has(a) {
+  display: block;
+  margin-bottom: 0;
+  font-size: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+main > .section > .default-content-wrapper p:has(a)::before {
+  content: none;
+}
+
 main > .section > .default-content-wrapper h2 {
   max-width: 28ch;
   font-size: var(--heading-xl);
