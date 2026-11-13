@@ -132,6 +132,11 @@ function readRows(block) {
 function figureFromEntry(entry) {
   const img = document.createElement('img');
   img.src = entry.image;
+  // synced entries carry their pixel size → the box is reserved before the photo loads
+  if (Number(entry.width) && Number(entry.height)) {
+    img.width = Number(entry.width);
+    img.height = Number(entry.height);
+  }
   img.alt = `Photo with Mike by ${entry.name}`;
   img.loading = 'lazy';
   img.decoding = 'async';
