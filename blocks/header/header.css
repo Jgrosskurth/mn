@@ -229,6 +229,52 @@ header nav .nav-sections li a:any-link::after {
   }
 }
 
+/* "Share a photo" (the Tally form link) = reversed pill: light ground, pine text.
+   Keyed on the href, not a class, so it survives inline editing (EW2). */
+header nav .nav-sections li a[href^='https://tally.so/']:any-link {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--snow);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--pine);
+  transition: background var(--dur-state) var(--ease-snap), color var(--dur-state) var(--ease-snap);
+}
+
+header nav .nav-sections li a[href^='https://tally.so/']:any-link::after {
+  display: none;
+}
+
+header nav .nav-sections li a[href^='https://tally.so/']:hover,
+header nav .nav-sections li a[href^='https://tally.so/']:focus-visible {
+  background: var(--white);
+  color: var(--maple-red);
+}
+
+header nav .nav-sections li a[href^='https://tally.so/']:focus-visible {
+  outline-offset: 3px;
+}
+
+@media (width >= 600px) {
+  header nav .nav-sections li a[href^='https://tally.so/']:any-link {
+    margin-top: 0;
+    padding: 8px 18px;
+  }
+}
+
+@media (width >= 600px) and (width < 900px) {
+  header nav .nav-sections ul {
+    gap: 0.75rem;
+  }
+
+  header nav .nav-sections li a[href^='https://tally.so/']:any-link {
+    padding: 7px 12px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   header nav .nav-sections,
   header nav[aria-expanded='true'] .nav-sections {
