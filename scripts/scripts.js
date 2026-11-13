@@ -164,10 +164,46 @@ async function loadEager(doc) {
 }
 
 /**
+ * Tally form links (https://tally.so/r/<id>, authored as normal links in content or /nav)
+ * open as an on-page pop-up. One delegated listener covers links rendered later (header,
+ * gallery re-render). Tally's script loads only on first hover/focus/click; if it can't
+ * load, or the visitor opens the link in a new tab, the link works as a normal link.
+ */
+const TALLY_LINK = /^https:\/\/tally\.so\/r\/([A-Za-z0-9]+)/;
+
+function tallyLink(target) {
+  const a = target?.closest?.('a[href^="https://tally.so/r/"]');
+  const id = a && (a.href.match(TALLY_LINK) || [])[1];
+  return id ? { a, id } : null;
+}
+
+function enhanceTallyLinks() {
+  const warm = (e) => {
+    if (!tallyLink(e.target)) return;
+    import('./tally-popup.js').then((m) => m.loadTally()).catch(() => {});
+  };
+  document.addEventListener('pointerover', warm, { passive: true });
+  document.addEventListener('focusin', warm);
+  document.addEventListener('click', async (e) => {
+    const link = tallyLink(e.target);
+    if (!link || e.defaultPrevented || e.button !== 0) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    try {
+      const { default: openTally } = await import('./tally-popup.js');
+      await openTally(link.id);
+    } catch {
+      window.location.href = link.a.href;
+    }
+  });
+}
+
+/**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
+  enhanceTallyLinks();
   loadHeader(doc.querySelector('header'));
 
   const main = doc.querySelector('main');
