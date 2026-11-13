@@ -12,6 +12,8 @@
  * Per new row (keyed by Submission ID): download the photo, convert to an EXIF-stripped
  * (no GPS), auto-oriented JPEG ≤ 1600 px, save gallery/photos/<id>.jpg, append the entry.
  * A row whose photo can't be fetched or converted is skipped and retried on the next run.
+ * To take a photo down for good: delete its entry + file and add its Submission ID to
+ * gallery/removed.json (a JSON array), or the next run re-adds it from the sheet.
  */
 /* eslint-disable no-console -- CLI script: its log is the Actions run log */
 import { execFileSync } from 'node:child_process';
@@ -120,7 +122,10 @@ function isoDate(value) {
 
 const indexFile = join(GALLERY_DIR, 'index.json');
 const entries = existsSync(indexFile) ? JSON.parse(readFileSync(indexFile, 'utf8')) : [];
-const known = new Set(entries.map((e) => e.id).filter(Boolean));
+// gallery/removed.json — submission IDs taken down on purpose; never re-added from the sheet
+const removedFile = join(GALLERY_DIR, 'removed.json');
+const removed = existsSync(removedFile) ? JSON.parse(readFileSync(removedFile, 'utf8')) : [];
+const known = new Set([...entries.map((e) => e.id), ...removed].filter(Boolean));
 const fresh = (await readSheet()).filter((s) => !known.has(s.id));
 
 console.log(`sheet: ${fresh.length} new submission(s)`);
